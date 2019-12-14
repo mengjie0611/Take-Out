@@ -2,7 +2,7 @@ import axios from './myAxios'
 // [1、根据经纬度获取位置详情](#1根据经纬度获取位置详情)<br/>
 export const reqAddress = (longitude, latitude)=>  axios(`/position/${latitude},${longitude}`) 
 // [2、获取食品分类列表](#2获取食品分类列表)<br/>
-export const reqCategory = ()=>  axios('/index_category') 
+export const reqCategorys = ()=>  axios('/index_category') 
 // [3、根据经纬度获取商铺列表](#3根据经纬度获取商铺列表)<br/>
 export const reqShops = ({longitude, latitude})=> axios('/shops', {params: {longitude, latitude}})
 // [4、根据经纬度和关键字搜索商铺列表](#4根据经纬度和关键字搜索商铺列表)<br/>

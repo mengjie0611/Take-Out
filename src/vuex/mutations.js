@@ -4,10 +4,10 @@ export default{
     console.log(address)
     state.address = address
   },
-  [RECEIVE_CATEGORYS] (state, categorys) {
+  [REQ_CATEGORYS] (state, categorys) {
     state.categorys = categorys
   },
-  [RECEIVE_SHOPS] (state, shops) {
+  [REQ_SHOPS] (state, shops) {
     state.shops = shops
   },
 }
