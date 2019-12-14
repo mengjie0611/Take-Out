@@ -4,11 +4,8 @@ export default{
   async getAddress({commit,state}){
     const {longitude, latitude} = state
     const result = await reqAddress(longitude, latitude)
-    console.log(result)
-    console.log(result.data,result.code)
     if(result.code == 0){
      const address = result.data
-      console.log(address)
       commit(REQ_ADDRESS,address)
     }
   },
