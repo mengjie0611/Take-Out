@@ -1,34 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Order from '../pages/order.vue'
-import Search from '../pages/search.vue'
-import Profile from '../pages/profile.vue'
-import Msite from '../pages/msite.vue'
+import Order from '../pages/Order/Order.vue'
+import Search from '../pages/Search/Search.vue'
+import Profile from '../pages/Profile/Profile.vue'
+import MSite from '../pages/MSite/MSite.vue'
+import Login from '../pages/Login/Login.vue'
 
 Vue.use(VueRouter)
 export default new VueRouter({
  //注册路由
- mode:'hash', 
+ mode:'history', 
   routes:[
     {
       path:'/order',
-      component:Order
+      component:Order,
+      meta:{isShow:true}
     },
     {
       path:'/search',
-      component:Search
+      component:Search,
+      meta:{isShow:true}
     },
     {
       path:'/profile',
-      component:Profile
+      component:Profile,
+      meta:{isShow:true}
     },
     {
       path:'/msite',
-      component:Msite
+      component:MSite,
+      meta:{isShow:true}
+    },
+    {
+      path:'/login',
+      component:Login
     },
     {
       path:'',
-      redirect:Msite
+      redirect:MSite
     }   
   ]
 })
