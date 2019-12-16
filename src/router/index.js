@@ -4,7 +4,7 @@ import Order from '../pages/Order/Order.vue'
 import Search from '../pages/Search/Search.vue'
 import Profile from '../pages/Profile/Profile.vue'
 import MSite from '../pages/MSite/MSite.vue'
-import Login from '../pages/Login/Login.vue'
+import Login from '../pages/Login/login.vue'
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -36,8 +36,8 @@ export default new VueRouter({
       component:Login
     },
     {
-      path:'',
-      redirect:MSite
+      path:'/',
+      redirect:'/msite'
     }   
   ]
 })

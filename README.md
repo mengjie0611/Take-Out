@@ -1,24 +1,5 @@
-# vue-app
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+axios 二次封装
+1统一处理处理请求异常
+2异步请求成功的数据不是response而是response.data
+3处理请求体格式
+4指定请求超时的时间和路径前缀
