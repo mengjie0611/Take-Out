@@ -17,6 +17,7 @@ import './common/stylus/mixins.styl'
         this.$store.dispatch('getAddress')
         this.$store.dispatch('getCategorys')
         this.$store.dispatch('getShops')
+        this.$store.dispatch('autoLogin')
     },
   }
 </script>

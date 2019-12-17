@@ -13,8 +13,8 @@
      
     <!--首页导航-->
     <nav class="msite_nav">
-      <div class="swiper-container">
-        <div ref="sc1" class="swiper-wrapper">
+      <div ref="sc1"  class="swiper-container">
+        <div class="swiper-wrapper">
          <div class="swiper-slide" v-for="(cs, index) in categorysArr" :key="index">
             <div class="link_to_food" v-for="(c, index) in cs" :key="index">
               <div class="food_container">
@@ -104,11 +104,10 @@
   import {mapState} from 'vuex'
   import 'swiper/css/swiper.css'
   export default {
-    mounted () {
+   async mounted () {
       //分发异步action，请求数据到vuex
-      this.$store.dispatch('getCategorys')
+      await this.$store.dispatch('getCategorys')
       this.$store.dispatch('getShops')
-      setTimeout(() => {
         new Swiper (this.$refs.sc1, {
         loop: true, // 循环模式选项
         // 如果需要分页器
@@ -116,7 +115,6 @@
           el: '.swiper-pagination',
         }
       })
-      }, 0);
     },
     computed: {
        ...mapState(['address', 'categorys', 'shops']),
