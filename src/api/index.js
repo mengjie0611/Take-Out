@@ -31,3 +31,6 @@ export const reqSmsLogin = ({phone, code}) => axios.post('/login_sms', {phone, c
 
 // 7. 自动登陆
 export const reqAutoLogin = () => axios.get('/auto_login')
+export const reqGoods = () => axios('/goods')
+export const reqRatings = () => axios('/ratings')
+export const reqInfo = () => axios('/info')

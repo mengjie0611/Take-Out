@@ -1,5 +1,5 @@
 
-import {REQ_ADDRESS,REQ_CATEGORYS,REQ_SHOPS,SAVEUSER,SAVRTOKEN,RESET_TOKEN,RESET_USER} from './mutations-types'
+import {REQ_ADDRESS,REQ_CATEGORYS,REQ_SHOPS,SAVEUSER,SAVRTOKEN,RESET_TOKEN,RESET_USER,SAVEGOOS,SAVEINFO,SAVERATINGS} from './mutations-types'
 export default{
   [REQ_ADDRESS](state,address){
     state.address = address
@@ -21,5 +21,14 @@ export default{
   },
   [RESET_USER] (state) {
     state.user = {}
+  },
+  [SAVEGOOS] (state,{goods}) {
+    state.goods = goods
+  },
+  [SAVERATINGS] (state,{ratings}) {
+    state.ratings = ratings
+  },
+  [SAVEINFO] (state,{info}) {
+    state.info = info
   },
 }

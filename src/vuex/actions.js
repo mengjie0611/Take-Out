@@ -1,6 +1,6 @@
 import { Toast, MessageBox } from 'mint-ui'
-import {reqAddress,reqCategorys,reqShops} from '../api'
-import {REQ_ADDRESS,REQ_CATEGORYS,REQ_SHOPS,SAVEUSER,SAVRTOKEN} from './mutations-types'
+import {reqAddress,reqCategorys,reqShops,reqAutoLogin,reqGoods,reqInfo,reqRatings} from '../api'
+import {REQ_ADDRESS,REQ_CATEGORYS,REQ_SHOPS,SAVEUSER,SAVRTOKEN,RESET_USER,RESET_TOKEN,SAVEGOOS,SAVERATINGS,SAVEINFO} from './mutations-types'
 export default{
   async getAddress({commit,state}){
     const {longitude, latitude} = state
@@ -32,14 +32,13 @@ export default{
     commit(SAVEUSER, {user})
     commit(SAVRTOKEN, {token})
   },
-  async autoLogin ({commit, state}) {
+  async autoLogin({commit, state}) {
 
-    if (state.token && !state.user._id) { // 必须要有token且没有user信息
-      // 发送自动登陆的请求
+    if (state.token && !state.user._id) { 
       const result = await reqAutoLogin()
       if (result.code===0) {
-        const user = result.data  // 没有token
-        commit(RECEIVE_USER, {user})
+        const user = result.data 
+        commit(SAVEUSER, {user})
       }
     }
     
@@ -49,5 +48,31 @@ export default{
     localStorage.removeItem('token_key')
     commit(RESET_USER)
     commit(RESET_TOKEN)
-  }
+  },
+ async getShopsGoods({commit}){
+  const result = await reqGoods()
+  if(result.code == 0){
+    const goods = result.data
+    console.log(goods)
+    commit(SAVEGOOS,{goods})
+   } 
+  },
+  async getShopsRatings({commit}){
+    const result = await reqRatings()
+    if(result.code == 0){
+      const ratings = result.data
+      console.log(ratings)
+      commit(SAVERATINGS,{ratings})
+     } 
+  },
+  async getShopsInfo({commit}){
+    const result = await reqInfo()
+    if(result.code == 0){
+      const info = result.data
+      console.log(info)
+      commit(SAVEINFO,{info})
+     } 
+  },
+  
+  
 }

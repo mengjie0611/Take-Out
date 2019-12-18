@@ -7,6 +7,9 @@ import store from './vuex/store'
 import './validate'
 import * as API from './api/index'
 import i18n from './i18n'
+import { Button } from 'mint-ui';
+import './mock/mockServer'
+Vue.component(Button.name, Button);
 Vue.prototype.$API = API
 Vue.config.productionTip = false
 Vue.component('Header',Header)
