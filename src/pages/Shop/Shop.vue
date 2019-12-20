@@ -1,5 +1,5 @@
 <template>
- <div>
+<div>
     <ShopHearder></ShopHearder>
     <div class="tab">
       <div class="tab-item">

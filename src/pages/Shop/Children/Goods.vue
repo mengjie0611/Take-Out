@@ -1,10 +1,11 @@
 <template>
- <div>
-  <div class="goods">
+<div>
+  <div class="goods" v-if="goods">
     <div class="menu-wrapper" ref="left">
-      <ul v-if="goods" >
+      <ul ref="leftUL">
         <!-- //current -->
-        <li class="menu-item" v-for="(good, index) in goods" :key="good.name" :class="{current: index===currentIndex}">
+        <li class="menu-item" v-for="(good, index) in goods" :key="good.name" :class="{current: index===currentIndex}"
+         @click="clickItem(index)">
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
               {{good.name}}
@@ -17,7 +18,7 @@
         <li class="food-list-hook" v-for="(good, index) in goods" :key="index">
         <h1 class="title">{{good.name}}</h1>
         <ul>
-          <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index">
+          <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index" @click="lookDatil(food)">
             <div class="icon" >
               <img width="57" height="57"
                     :src="food.icon">
@@ -32,7 +33,7 @@
                 <span class="now">￥{{food.price}}</span>
               </div>
               <div class="cartcontrol-wrapper">
-                CartControl组件
+                <CartControl :food='food'></CartControl>
               </div>
             </div>
           </li>
@@ -40,7 +41,9 @@
         </li>
       </ul>
     </div>
+    <ShopCart/>
   </div>
+  <Food :food="food" ref="food"/>
 </div>
 
 </template>
@@ -48,32 +51,36 @@
 <script type="text/ecmascript-6">
 import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
+import Food from '../../../components/Food'
+import ShopCart from '../../../components/ShopCart'
   export default {
     data() {
       return {
         scrollY:0,
-        tops:[]
+        tops:[],
+        food: {},
       }
     },
-        computed: {
-      ...mapState(['goods']),
-      currentIndex () {
-        const {scrollY, tops} = this
-        console.log(scrollY)
-        return tops.findIndex((top, index) => scrollY>=top && scrollY<tops[index+1])
-      }
-    },
-     methods: {
+    methods: {
       initScroll () {
-        new BScroll(this.$refs.left, {})
-        const rightScroll = new BScroll(this.$refs.right, {
+        this.leftScroll = new BScroll(this.$refs.left, {
+          click:true,
+          mouseWheel: true,//开启鼠标滚轮
+          disableMouse: false,//启用鼠标拖动
+          disableTouch: false//启用手指触摸
+          
+        })
+        this.rightScroll = new BScroll(this.$refs.right, {
           probeType: 1,
+          click:true,
+          mouseWheel: true,//开启鼠标滚轮
+          disableMouse: false,//启用鼠标拖动
+          disableTouch: false//启用手指触摸
         })
-        rightScroll.on('scroll', ({x, y}) => {
+        this.rightScroll.on('scroll', ({x, y}) => {
           this.scrollY = Math.abs(y)
-            console.log(y)
         })
-        rightScroll.on('scrollEnd', ({x, y}) => {
+        this.rightScroll.on('scrollEnd', ({x, y}) => {
           this.scrollY = Math.abs(y)
         })
       },
@@ -87,7 +94,22 @@ import {mapState} from 'vuex'
           tops.push(top)
         })
         this.tops = tops
-        console.log('tops', tops)
+      },
+      clickItem(index){
+        const top = this.tops[index]
+        this.scrollY = top
+        this.rightScroll.scrollTo(0, -top, 300)
+      },
+      lookDatil(food){
+        this.food = food
+        this.$refs.food.toggleShow()
+      }
+    },
+    computed: {
+      ...mapState(['goods']),
+      currentIndex () {
+        const {scrollY, tops} = this
+        return tops.findIndex((top, index) => scrollY>=top && scrollY<tops[index+1])
       }
     },
 
@@ -98,6 +120,10 @@ import {mapState} from 'vuex'
           this.initTops()
         })
       }
+    },
+    components:{
+      Food,
+      ShopCart
     }
 
   }
